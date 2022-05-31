@@ -11,7 +11,7 @@ export default function FormPost(props) {
         commentaire_produit: props.dataPost ? props.dataPost.commentaire_produit : '',
         image_produit: props.dataPost ? props.dataPost.image_produit : '',
         donation_produit: props.dataPost ? props.dataPost.donation_produit : true,
-				id_categorie: props.dataPost ? props.dataPost.id_categorie : ''
+				categorieId: props.dataPost ? props.dataPost.categorieId : '1'
     })
 
     const handleChange = (e) => {
@@ -37,7 +37,7 @@ export default function FormPost(props) {
     }
 
     const updateData = async (e) => {
-        await fetch('http://localhost:3000/posts/' + props.dataPost.id, {
+        await fetch('http://localhost:3001/posts/' + props.dataPost.id, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
@@ -149,9 +149,9 @@ export default function FormPost(props) {
                         </p>
                     </div>
                     <p>
-                        <input type="number" id="id_categorie"
-                            name="id_categorie"
-                            value={data.id_categorie}
+                        <input type="number" id="categorieId"
+                            name="categorieId"
+                            value={data.categorieId}
                             onChange={handleChange} class="py-1 px-1 text-gray-900 outline-none block h-full w-full" />
                     </p>
                 </div>
