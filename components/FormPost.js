@@ -2,9 +2,26 @@ import { useRouter } from 'next/router'
 import { useState } from "react";
 
 export default function FormPost(props) {
+		const [categories, setCategories] = useState([]);
+		console.log("props", props)
+		const categoriesData = async () => {
+			await fetch('http://localhost:3001/api/categories/', {
+					method: 'GET',
+					body: JSON.stringify(data),
+					headers: {
+							'Content-type': 'application/json; charset=UTF-8',
+					},
+			})
+			.then((response) => response.json())
+			.then((json) => console.log("json categories",json))
+			.then((json) => setCategories(json))
+		}
+		// categoriesData();
+		// console.log("categories", categoriesData);
+
     const router = useRouter()
     const [data, setData] = useState({
-
+				// id_produit : props.dataPost ? props.id_produit : '',
 				code_EAN: props.dataPost ? props.dataPost.code_EAN : '',
         nom_produit: props.dataPost ? props.dataPost.nom_produit : '',
 				quantite_produit: props.dataPost ? props.dataPost.quantite_produit : '',
@@ -21,6 +38,7 @@ export default function FormPost(props) {
 					}
 			))
     }
+
     const storeData = async (e) => {
         await fetch('http://localhost:3001/api/produits/', {
             method: 'POST',
@@ -37,15 +55,15 @@ export default function FormPost(props) {
     }
 
     const updateData = async (e) => {
-        await fetch('http://localhost:3001/posts/' + props.dataPost.id, {
+        await fetch('http://localhost:3001/api/produits/' + props.dataPost.id_produit, {
             method: 'PUT',
             body: JSON.stringify(data),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
             },
         })
-            .then((response) => response.json())
-            .then((json) => console.log(json))
+        .then((response) => response.json())
+        .then((json) => console.log(json))
 
         router.push('/')
 
@@ -149,6 +167,12 @@ export default function FormPost(props) {
                         </p>
                     </div>
                     <p>
+										<select onChange={handleChange} value={data.categorieId}>
+											<option value="1">chocolat </option>
+											<option value="b">b</option>
+											<option value="c">c</option>
+											<option value="d">d</option>
+  									</select>
                         <input type="number" id="categorieId"
                             name="categorieId"
                             value={data.categorieId}

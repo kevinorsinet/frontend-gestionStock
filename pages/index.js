@@ -11,7 +11,7 @@ export default function Home(props) {
   const getAll = async () => {
     const res = await fetch('http://localhost:3001/api/produits')
     const data = await res.json()
-    console.log("data", data)
+    // console.log("data", data)
     setProduit(data)
   }
 
@@ -30,11 +30,15 @@ export default function Home(props) {
           <div className="bg-gray-100 shadow-md px-4 py-2 rounded-md">
             <div>
               <h1 className="text-xl font-medium">{item.nom_produit}</h1>
+              <div class="mb-4">
+                <Image width={120} height={120} src={`/${item.image_produit}`} class="max-w-full h-auto rounded-lg" alt=""/>
+              </div>
               <p className="text-sm">Code EAN : {item.code_EAN}</p>
               <p className="text-sm">Quantité : {item.quantite_produit}</p>
               <p className="text-sm">Image : {item.image_produit}</p>
               <p className="text-sm">Donation : {item.donation_produit}</p>
               <p className="text-sm">Commentaire : {item.commentaire_produit}</p>
+              <p className="text-sm">Catégorie : {item.categorie.nom_categorie}</p>
             </div>
             <div className="my-2">
               <Link href={`/produit/${encodeURIComponent(item.id_produit)}`}>
